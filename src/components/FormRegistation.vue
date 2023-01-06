@@ -63,7 +63,9 @@
         </b-form-valid-feedback>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Registracija</b-button>
+      <b-button type="button" @click="prijava" variant="primary"
+        >Registracija</b-button
+      >
     </b-form>
 
     <!-- <b-card class="mt-3" header="Form Data Result">
@@ -73,6 +75,8 @@
 </template>
 
 <script>
+import { auth, createUserWithEmailAndPassword } from "@/firebase";
+
 export default {
   data() {
     return {
@@ -108,6 +112,30 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    prijava() {
+      // if (this.form.password !== this.form.rPassword) {
+      //   alert("lozinka nije ista");
+      // } else if (this.form.password.length < 6) {
+      //   alert(
+      //     "Lozinka treba sadržavati najmanje 6 znamenki. Vaša lozinka sadržava " +
+      //       this.form.password.length +
+      //       " znamenke"
+      //   );
+      // }
+      createUserWithEmailAndPassword(auth, this.form.email, this.form.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          alert("Korisnik je registriran");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(error.code + " " + error.message);
+          // ..
+        });
     },
   },
 };

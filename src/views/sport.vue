@@ -19,13 +19,16 @@
       <b-col cols="10">
         <div class="okvir">
           <!-- <submitsportVue /> -->
-          <vjezbaVue />
+          <vjezbaVue v-if="store.currentUser" />
+          <karticaVue v-if="store.sport" />
           <!-- <vjezbaVue /> -->
         </div>
       </b-col>
     </b-row>
     <b-row>
-      <b-col>1 of 3</b-col>
+      <b-col>
+        <karticaVue v-for="card in cards" :key="card.id" :info="card" />
+      </b-col>
       <b-col>2 of 3</b-col>
       <b-col>3 of 3</b-col>
     </b-row>
@@ -36,17 +39,44 @@
 import submitsportVue from "@/components/submitsport.vue";
 import vjezbaVue from "@/components/vjezba.vue";
 import opcine from "@/assets/popis.json";
+import karticaVue from "@/components/kartica.vue";
+import store from "@/store";
+import { collection, db, getDocs } from "@/firebase";
 
 export default {
   name: "sport",
   data() {
     return {
       opcine,
+      store: store,
+      cards: [],
     };
   },
   components: {
     submitsportVue,
     vjezbaVue,
+    karticaVue,
+  },
+  mounted() {
+    this.dohvatiobjave();
+  },
+  methods: {
+    async dohvatiobjave() {
+      const querySnapshot = await getDocs(collection(db, "Objave"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data;
+        this.cards.push({
+          id: doc.id,
+          datum: data.datum,
+          igraci: data.igraci,
+          lokacija: data.lokacija,
+          time: data.objavljeno,
+          poruka: data.poruka,
+        });
+
+        console.log(`${doc.id} => ${doc.data()}`);
+      });
+    },
   },
 };
 </script>

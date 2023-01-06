@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from "@/store"
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      needsUser: true
+    }
     
   },
   {
@@ -34,5 +38,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next)=>{
+//   console.log("Stara ruta ", from.name, "Nova ruta ", to.name, "korisnik", store.currentUser)
+  
+//   const noUser = store.currentUser === null;
+//   if(noUser && to.meta.needsUser){
+//     next('login');
+//   }
+//   else{
+//   next();
+// }});
 
 export default router

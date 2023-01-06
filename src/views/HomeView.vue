@@ -34,11 +34,17 @@
 <script>
 // @ is an alias to /src
 import FormRegistation from "@/components/FormRegistation.vue";
+import store from "@/store";
 
 import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "HomeView",
+  data() {
+    return {
+      store: store,
+    };
+  },
   components: {
     NavBar,
     FormRegistation,
@@ -58,11 +64,11 @@ a:hover {
   font-size: 1.5em;
 }
 .coltri {
-  padding-top: 10em;
+  padding-top: 3em;
 }
 .coldva {
   text-align: center;
-  padding-top: 10em;
+  padding-top: 3em;
 }
 h4 {
   color: #29a48b;

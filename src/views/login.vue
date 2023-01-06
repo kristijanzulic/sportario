@@ -36,7 +36,7 @@
                   >Zapamti me</label
                 >
               </div>
-              <button type="button" @click="login" class="tipka btn">
+              <button type="button" @click="login()" class="tipka btn">
                 Prijava
               </button>
               <p class="zab">Zaboravio si lozinku?</p>
@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { getAuth, auth, signInWithEmailAndPassword } from "@/firebase";
+
 export default {
   name: "login",
   data() {
@@ -59,6 +61,31 @@ export default {
       email: "",
       password: "",
     };
+  },
+  methods: {
+    login() {
+      if (this.password.length < 6) {
+        alert(
+          "Lozinka treba sadržavati najmanje 6 znamenki. Vaša lozinka sadržava " +
+            this.password.length
+        );
+      }
+
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          console.log("Korisnik je prijavljen");
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(error.code + " -> ");
+        });
+    },
   },
 };
 </script>
@@ -89,6 +116,7 @@ export default {
 }
 .bojainput {
   background: #000000;
+  color: white;
   border-style: solid;
   border-color: #adadad;
 }
@@ -98,6 +126,9 @@ export default {
   width: 100%;
   font-size: 18px;
   background-color: #adadad;
+}
+:hover {
+  color: white;
 }
 .space {
   margin-top: 20%;

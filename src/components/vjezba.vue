@@ -4,16 +4,14 @@
 
     <b-modal
       id="modal-prevent-closing"
+      ok-only
       ref="modal"
       title="Podnesi svoj zahtjev"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
     >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
+      <form>
         <!-- sport -->
         <label>Odaberi sport:</label> <br />
-        <select v-model="store.sport1">
+        <select v-model="store.sport">
           <option v-for="sport in sportovi" :key="sport.sport">
             {{ sport.sport }}
           </option>
@@ -22,7 +20,7 @@
         <br />
 
         <label>Odaberi lokaciju:</label> <br />
-        <select v-model="store.lokacija1">
+        <select v-model="store.lokacija">
           <option v-for="opcina in sortMj" :key="opcina.id">
             {{ opcina.opcina }}
           </option>
@@ -31,21 +29,21 @@
         <br />
 
         <label>Odaberi datum:</label> <br />
-        <input v-model="store.datum1" type="date" />
+        <input v-model="store.datum" type="date" />
 
         <br />
 
         <label>Odaberi broj igraća:</label> <br />
-        <input v-model="store.igraci1" type="number" />
+        <input v-model="store.igraci" type="number" />
 
         <span>Unesi dodatno:</span>
-        <p style="white-space: pre-line">{{ message }}</p>
+        <p style="white-space: pre-line">{{ store.message }}</p>
         <textarea
           v-model="store.message"
           placeholder="add multiple lines"
         ></textarea>
 
-        <p>ovo je :{{ imeprezime }}</p>
+        <p>Izabrano je: {{ imeprezime }}</p>
       </form>
     </b-modal>
   </div>
@@ -55,6 +53,7 @@
 import opcine from "@/assets/popis.json";
 import sport from "@/assets/sportovi.json";
 import store from "@/store";
+import { collection, addDoc } from "@/firebase";
 
 export default {
   data() {
@@ -64,7 +63,24 @@ export default {
       store: store,
     };
   },
-  methods: {},
+  methods: {
+    async postNewImage() {
+      let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
+
+      try {
+        const docRef = await addDoc(collection(db, "Objave"), {
+          sport: this.store.sport,
+          lokacija: this.store.lokacija,
+          datum: this.store.datum,
+          igraci: this.store.igraci,
+          poruka: this.store.message,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    },
+  },
   computed: {
     sortMj() {
       const cats = this.popis.reduce((p, c) => {
@@ -77,13 +93,13 @@ export default {
     },
     imeprezime() {
       return (
-        this.store.sport1 +
+        this.store.sport +
         " " +
-        this.store.lokacija1 +
+        this.store.lokacija +
         " " +
-        this.store.datum1 +
+        this.store.datum +
         " " +
-        this.store.igraci1 +
+        this.store.igraci +
         " " +
         this.store.message
       );
