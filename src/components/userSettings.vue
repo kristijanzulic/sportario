@@ -43,6 +43,7 @@
                         </b-form-group>
                         <!-- email -->
                         <b-form-group
+                          disabled
                           label-cols-sm="4"
                           label-cols-lg="3"
                           content-cols-sm
@@ -87,7 +88,16 @@
 <script>
 import store from "@/store";
 import karticaVue from "@/components/kartica.vue";
-import { collection, db, getDocs, query, orderBy, limit } from "@/firebase";
+import {
+  getAuth,
+  addDoc,
+  collection,
+  db,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+} from "@/firebase";
 
 export default {
   name: "userSettings",
@@ -104,10 +114,12 @@ export default {
   methods: {
     async spremiOsobnePodatke() {
       try {
+        const auth = getAuth();
+        const user = auth.currentUser;
         const docRef = await addDoc(collection(db, "Osobni podaci"), {
-          ime: this.store.ime,
+          ime: this.store.prezime,
           prezime: this.store.prezime,
-          email: this.store.email,
+          email: user.email,
           brojmobitela: this.store.broj,
         });
         console.log("Document written with ID: ", docRef.id);
@@ -116,10 +128,12 @@ export default {
       }
     },
     async dohvatiobjave() {
+      const auth = getAuth();
+      const user = auth.currentUser;
       const querySnapshot = query(
         collection(db, "Objave"),
         orderBy("objavljeno", "desc"),
-        limit(2)
+        limit(10)
       );
 
       await getDocs(querySnapshot).then((querySnapshot) => {
