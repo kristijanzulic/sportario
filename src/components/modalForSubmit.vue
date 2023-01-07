@@ -7,6 +7,7 @@
       ok-only
       ref="modal"
       title="Podnesi svoj zahtjev"
+      hide-footer
     >
       <form>
         <!-- sport -->
@@ -42,9 +43,8 @@
           v-model="store.message"
           placeholder="add multiple lines"
         ></textarea>
-
-        <p>Izabrano je: {{ imeprezime }}</p>
       </form>
+      <button type="button" @click="postNewImage()">Podnesi</button>
     </b-modal>
   </div>
 </template>
@@ -53,7 +53,7 @@
 import opcine from "@/assets/popis.json";
 import sport from "@/assets/sportovi.json";
 import store from "@/store";
-import { collection, addDoc } from "@/firebase";
+import { collection, addDoc, db } from "@/firebase";
 
 export default {
   data() {
@@ -65,8 +65,7 @@ export default {
   },
   methods: {
     async postNewImage() {
-      let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
-
+      // let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
       try {
         const docRef = await addDoc(collection(db, "Objave"), {
           sport: this.store.sport,
@@ -74,8 +73,15 @@ export default {
           datum: this.store.datum,
           igraci: this.store.igraci,
           poruka: this.store.message,
+          email: this.store.currentUser,
+          objavljeno: Date.now(),
         });
         console.log("Document written with ID: ", docRef.id);
+        this.store.sport = "";
+        this.store.lokacija = "";
+        this.store.datum = "";
+        this.store.igraci = "";
+        this.store.message = "";
       } catch (e) {
         console.error("Error adding document: ", e);
       }

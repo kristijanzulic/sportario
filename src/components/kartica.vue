@@ -2,11 +2,12 @@
   <div class="card" style="width: 18rem">
     <img src="@/assets/tennis.jpg" class="card-img-top" alt="..." />
     <div class="card-body">
-      <h5 class="">{{ store.sport }}</h5>
-      <p class="card-text">{{ store.message }}</p>
-      <h2>{{ store.lokacija }}</h2>
-      <p>{{ store.datum }}</p>
-      <button type="button" @click="postNewImage">Objavi</button>
+      <h5 class="">{{ info.sport }}</h5>
+      <p class="card-text">{{ info.poruka }}</p>
+      <h2>{{ info.lokacija }}</h2>
+      <h2>{{ info.ime }}</h2>
+      <p>{{ info.datum }}</p>
+      <div class="card-footer text-muted">{{ postedFromNow }}</div>
     </div>
   </div>
 </template>
@@ -14,13 +15,22 @@
 <script>
 import store from "@/store";
 import { collection, addDoc, db } from "@/firebase";
+import moment from "moment";
 
 export default {
-  props: ["info"],
+  props: {
+    info: Object,
+  },
+
   data() {
     return {
       store: store,
     };
+  },
+  computed: {
+    postedFromNow() {
+      return moment(this.info.time).fromNow();
+    },
   },
   methods: {
     async postNewImage() {

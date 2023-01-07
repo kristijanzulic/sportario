@@ -18,10 +18,7 @@
       </b-col>
       <b-col cols="10">
         <div class="okvir">
-          <!-- <submitsportVue /> -->
-          <vjezbaVue v-if="store.currentUser" />
-          <karticaVue v-if="store.sport" />
-          <!-- <vjezbaVue /> -->
+          <modalForSubmitVue v-if="store.currentUser" />
         </div>
       </b-col>
     </b-row>
@@ -36,12 +33,11 @@
 </template>
 
 <script>
-import submitsportVue from "@/components/submitsport.vue";
-import vjezbaVue from "@/components/vjezba.vue";
+import modalForSubmitVue from "@/components/modalForSubmit.vue";
 import opcine from "@/assets/popis.json";
 import karticaVue from "@/components/kartica.vue";
 import store from "@/store";
-import { collection, db, getDocs } from "@/firebase";
+import { collection, db, getDocs, query, orderBy, limit } from "@/firebase";
 
 export default {
   name: "sport",
@@ -53,28 +49,40 @@ export default {
     };
   },
   components: {
-    submitsportVue,
-    vjezbaVue,
     karticaVue,
+    modalForSubmitVue,
   },
   mounted() {
     this.dohvatiobjave();
   },
   methods: {
     async dohvatiobjave() {
-      const querySnapshot = await getDocs(collection(db, "Objave"));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data;
-        this.cards.push({
-          id: doc.id,
-          datum: data.datum,
-          igraci: data.igraci,
-          lokacija: data.lokacija,
-          time: data.objavljeno,
-          poruka: data.poruka,
+      const querySnapshot = query(
+        collection(db, "Objave"),
+        orderBy("objavljeno", "desc"),
+        limit(10)
+      );
+
+      await getDocs(querySnapshot).then((querySnapshot) => {
+        this.cards = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          this.cards.push({
+            id: doc.id,
+            sport: data.sport,
+            datum: data.datum,
+            igraci: data.igraci,
+            lokacija: data.lokacija,
+            time: data.objavljeno,
+            poruka: data.poruka,
+          });
+          console.log("kartice" + this.cards);
         });
 
-        console.log(`${doc.id} => ${doc.data()}`);
+        // console.log(`${doc.id} => ${doc.data()}`);
+        console.log("id: " + doc.id);
+        console.log("podaci " + doc.data);
+        console.log(doc);
       });
     },
   },

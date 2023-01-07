@@ -5,6 +5,12 @@ export default {
     datum:"",
     message:"",
     currentUser: null,
+
+    ime:"",
+    prezime:"",
+    email:"",
+    broj:"",
+    lozinka:""
 }
 
 

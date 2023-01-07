@@ -1,17 +1,20 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut  } from "firebase/auth";
-import { getFirestore, collection, addDoc, getDocs  } from "firebase/firestore";
+import { 
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
+  onAuthStateChanged, signOut, deleteUser,sendPasswordResetEmail,updatePassword, sendEmailVerification} 
+from "firebase/auth";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit  } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCD19Ue4vDxm6nFhYlWs96nx1GPxU3vn28",
-  authDomain: "projektprog-cd233.firebaseapp.com",
-  projectId: "projektprog-cd233",
-  storageBucket: "projektprog-cd233.appspot.com",
-  messagingSenderId: "235386576924",
-  appId: "1:235386576924:web:b912a0112df7c0ad3effd9"
+  apiKey: "AIzaSyCeSOqlOfS2AuetyIlECJfl534Z2LRCKEE",
+  authDomain: "prog-5c39c.firebaseapp.com",
+  projectId: "prog-5c39c",
+  storageBucket: "prog-5c39c.appspot.com",
+  messagingSenderId: "251758974182",
+  appId: "1:251758974182:web:cd09a39cb41340e80a9727"
 };
 
 // Initialize Firebase
@@ -27,10 +30,17 @@ export {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut,
+    deleteUser, 
+    sendPasswordResetEmail,
+    updatePassword, 
+    sendEmailVerification,
     //firestore
     db,
     collection, 
     addDoc,
-    getDocs 
+    getDocs,
+    query,
+    orderBy,
+    limit
 
 }

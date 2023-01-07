@@ -75,7 +75,11 @@
 </template>
 
 <script>
-import { auth, createUserWithEmailAndPassword } from "@/firebase";
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "@/firebase";
 
 export default {
   data() {
@@ -129,6 +133,11 @@ export default {
           const user = userCredential.user;
           // ...
           alert("Korisnik je registriran");
+          // verifikacija
+          sendEmailVerification(auth.currentUser).then(() => {
+            console.log("poslan je email za verifikaciju");
+            // ...
+          });
         })
         .catch((error) => {
           const errorCode = error.code;

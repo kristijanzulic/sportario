@@ -35,7 +35,9 @@
             <template #button-content>
               <em>User</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/profile">Profile</router-link></b-dropdown-item
+            >
             <b-dropdown-item href="#" @click.prevent="logout"
               >Sign Out</b-dropdown-item
             >

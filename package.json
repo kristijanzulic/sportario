@@ -11,6 +11,7 @@
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "firebase": "^9.15.0",
+    "moment": "^2.29.4",
     "vue": "^2.7.14",
     "vue-date-pick": "^1.5.1",
     "vue-multiselect": "^2.1.6",
