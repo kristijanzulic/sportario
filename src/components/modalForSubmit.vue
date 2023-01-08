@@ -74,7 +74,7 @@ export default {
           datum: this.store.datum,
           igraci: this.store.igraci,
           poruka: this.store.message,
-          email: this.store.currentUser,
+          email: this.store.currentUser.email,
           objavljeno: Date.now(),
         });
         console.log("Document written with ID: ", docRef.id);

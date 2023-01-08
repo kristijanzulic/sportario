@@ -33,7 +33,7 @@
           <b-nav-item-dropdown right v-if="store.currentUser">
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em>User</em>
+              <em>{{ store.currentUser.displayName }}</em>
             </template>
             <b-dropdown-item>
               <router-link to="/profile">Profile</router-link></b-dropdown-item
@@ -61,7 +61,8 @@ import store from "@/store";
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    store.currentUser = user.email;
+    store.currentUser = user;
+    console.log(store.currentUser);
     const currentRoute = router.currentRoute;
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User

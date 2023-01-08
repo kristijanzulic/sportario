@@ -75,18 +75,15 @@ export default {
             lokacija: data.lokacija,
             time: data.objavljeno,
             poruka: data.poruka,
-            id: doc.id,
+            email: data.email,
           });
-          console.log(data);
+          //console.log(data);
 
-          console.log(doc.id);
-          console.log("kartice" + this.cards);
+          //console.log(doc.id);
+          //console.log("kartice" + this.cards);
         });
 
         // console.log(`${doc.id} => ${doc.data()}`);
-        console.log("id: " + doc.id);
-        console.log("podaci " + doc.data);
-        console.log(doc);
       });
     },
   },

@@ -29,7 +29,9 @@
                           content-cols-lg="7"
                           label="Ime"
                         >
-                          <b-form-input v-model="store.ime"></b-form-input>
+                          <b-form-input
+                            v-model="store.currentUser.displayName"
+                          ></b-form-input>
                         </b-form-group>
                         <!-- prezime -->
                         <b-form-group
@@ -53,7 +55,7 @@
                           <b-form-input
                             id="input-horizontal"
                             type="email"
-                            v-model="store.email"
+                            v-model="store.currentUser.email"
                           ></b-form-input>
                         </b-form-group>
                         <!-- phone -->
@@ -72,7 +74,7 @@
                       </b-col>
                     </b-row> </b-container
                 ></b-card-text>
-                <button type="button" @click="spremiOsobnePodatke()">
+                <button type="button" @click="urediProfil()">
                   Spremi podatke
                 </button></b-tab
               >
@@ -98,6 +100,9 @@ import {
   orderBy,
   limit,
   onSnapshot,
+  where,
+  doc,
+  updateProfile,
 } from "@/firebase";
 
 export default {
@@ -113,6 +118,20 @@ export default {
     this.dohvatiobjave();
   },
   methods: {
+    async urediProfil() {
+      const auth = getAuth();
+      updateProfile(auth.currentUser, {
+        displayName: this.store.currentUser.displayName,
+      })
+        .then(() => {
+          console.log("Radim");
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
+        });
+    },
+
     async spremiOsobnePodatke() {
       try {
         const auth = getAuth();
@@ -131,10 +150,11 @@ export default {
     async dohvatiobjave() {
       const auth = getAuth();
       const user = auth.currentUser;
-
+      console.log(user);
       const querySnapshot = query(
         collection(db, "Objave"),
         orderBy("objavljeno", "desc"),
+        where("email", "==", user.email),
         limit(10)
       );
 
@@ -152,11 +172,7 @@ export default {
             poruka: data.poruka,
           });
         });
-
-        // console.log(`${doc.id} => ${doc.data()}`);
-        console.log("id: " + doc.id);
-        console.log("podaci " + doc.data);
-        console.log(doc);
+        console.log(this.cards);
       });
     },
   },

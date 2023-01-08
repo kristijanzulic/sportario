@@ -39,7 +39,6 @@ export default {
   },
   mounted() {
     this.azurirajlozinku();
-    this.dohvatiobjave();
   },
   methods: {
     azurirajlozinku() {

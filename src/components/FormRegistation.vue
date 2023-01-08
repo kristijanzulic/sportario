@@ -16,14 +16,7 @@
         ></b-form-input>
       </b-form-group>
       <!-- ime -->
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          placeholder="Enter name"
-          required
-        ></b-form-input>
-      </b-form-group>
+
       <!-- password -->
 
       <b-form-group id="input-group-3" label-for="input-3">
@@ -80,16 +73,17 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "@/firebase";
+import store from "@/store";
 
 export default {
   data() {
     return {
       form: {
         email: "",
-        name: "",
         password: "",
         rpassword: "",
       },
+      store: store,
       show: true,
     };
   },
@@ -133,6 +127,16 @@ export default {
           const user = userCredential.user;
           // ...
           alert("Korisnik je registriran");
+          updateProfile(auth.currentUser, {
+            displayName: this.store.currentUser.displayName,
+          })
+            .then(() => {
+              console.log("Radim");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
           // verifikacija
           sendEmailVerification(auth.currentUser).then(() => {
             console.log("poslan je email za verifikaciju");

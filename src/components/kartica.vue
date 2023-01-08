@@ -1,6 +1,41 @@
 <template>
   <div class="card" style="width: 18rem">
-    <img src="@/assets/tennis.jpg" class="card-img-top" alt="..." />
+    <img
+      src="@/assets/backround.jpg"
+      v-if="info.sport == 'Nogomet'"
+      class="card-img-top"
+      alt="..."
+    />
+    <img
+      src="@/assets/backround.jpg"
+      v-if="info.sport == 'Košarka'"
+      class="card-img-top"
+      alt="..."
+    />
+    <img
+      src="@/assets/tennis.jpg"
+      v-if="info.sport == 'Tenis'"
+      class="card-img-top"
+      alt="..."
+    />
+    <img
+      src="@/assets/logo_pravi.png"
+      v-if="info.sport == 'Biciklizam'"
+      class="card-img-top"
+      alt="..."
+    />
+    <img
+      src="@/assets/tennis.jpg"
+      v-if="info.sport == 'Rukomet'"
+      class="card-img-top"
+      alt="..."
+    />
+    <img
+      src="@/assets/tennis.jpg"
+      v-if="info.sport == 'Golf'"
+      class="card-img-top"
+      alt="..."
+    />
     <div class="card-body">
       <h5 class="">{{ info.sport }}</h5>
       <p class="card-text">{{ info.poruka }}</p>
@@ -8,6 +43,12 @@
       <h2>{{ info.ime }}</h2>
       <p>{{ info.datum }}</p>
       <p>id : {{ info.id }}</p>
+      <button
+        v-if="info.email == this.store.currentUser.email"
+        @click="brisanjeobjave()"
+      >
+        Obrisi
+      </button>
       <div class="card-footer text-muted">{{ postedFromNow }}</div>
     </div>
   </div>
@@ -15,7 +56,7 @@
 
 <script>
 import store from "@/store";
-import { collection, addDoc, db } from "@/firebase";
+import { getAuth, collection, addDoc, db, deleteDoc, doc } from "@/firebase";
 import moment from "moment";
 
 export default {
@@ -32,6 +73,11 @@ export default {
     postedFromNow() {
       return moment(this.info.time).fromNow();
     },
+  },
+  mounted() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    console.log("console log 1 " + this.info.id);
   },
   methods: {
     async postNewImage() {
@@ -55,6 +101,10 @@ export default {
       } catch (e) {
         console.error("Error adding document: ", e);
       }
+    },
+    async brisanjeobjave() {
+      await deleteDoc(doc(db, "Objave", this.info.id));
+      console.log("RADIM");
     },
   },
 };

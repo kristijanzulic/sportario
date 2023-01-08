@@ -1,11 +1,30 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { 
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
-  onAuthStateChanged, signOut, deleteUser,sendPasswordResetEmail,updatePassword, sendEmailVerification,
-  } 
-from "firebase/auth";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, doc, deleteDoc, onSnapshot   } from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  deleteUser,
+  sendPasswordResetEmail,
+  updatePassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  doc,
+  deleteDoc,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -15,7 +34,7 @@ const firebaseConfig = {
   projectId: "prog-5c39c",
   storageBucket: "prog-5c39c.appspot.com",
   messagingSenderId: "251758974182",
-  appId: "1:251758974182:web:cd09a39cb41340e80a9727"
+  appId: "1:251758974182:web:cd09a39cb41340e80a9727",
 };
 
 // Initialize Firebase
@@ -25,26 +44,27 @@ const db = getFirestore(app);
 
 export {
   // auth
-    auth,
-    getAuth, 
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut,
-    deleteUser, 
-    sendPasswordResetEmail,
-    updatePassword, 
-    sendEmailVerification,
-    //firestore
-    db,
-    collection, 
-    addDoc,
-    getDocs,
-    query,
-    orderBy,
-    limit,
-    doc, 
-    deleteDoc,
-    onSnapshot 
-
-}
+  auth,
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  deleteUser,
+  sendPasswordResetEmail,
+  updatePassword,
+  sendEmailVerification,
+  updateProfile,
+  //firestore
+  db,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  doc,
+  deleteDoc,
+  onSnapshot,
+  where,
+};
