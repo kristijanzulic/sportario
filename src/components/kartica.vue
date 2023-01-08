@@ -7,6 +7,7 @@
       <h2>{{ info.lokacija }}</h2>
       <h2>{{ info.ime }}</h2>
       <p>{{ info.datum }}</p>
+      <p>id : {{ info.id }}</p>
       <div class="card-footer text-muted">{{ postedFromNow }}</div>
     </div>
   </div>

@@ -4,12 +4,25 @@
     <userSettings />
     <button type="button" @click="brisanje()">Obrisi me</button>
     <button type="button" @click="promijenilozinku()">Promijeni lozinku</button>
+    <form class="delete">
+      <label for="id">document id: </label>
+      <input type="text" name="id" required />
+      <button @click="brisanjeobjave()">Delete a book</button>
+    </form>
   </div>
 </template>
 <script>
 import userSettings from "@/components/userSettings.vue";
 import store from "@/store";
-import { getAuth, deleteUser, sendPasswordResetEmail } from "@/firebase";
+import {
+  getAuth,
+  deleteUser,
+  sendPasswordResetEmail,
+  doc,
+  deleteDoc,
+  collection,
+  db,
+} from "@/firebase";
 
 export default {
   data: {
@@ -69,6 +82,20 @@ export default {
 
           // ...
         });
+    },
+    brisanjeobjave() {
+      const deleteBookForm = document.querySelector(".delete");
+      deleteBookForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const docRef = doc(db, "Objave", deleteBookForm.id.value);
+
+        deleteDoc(docRef).then(() => {
+          console.log("Obrisano je");
+          deleteBookForm.reset();
+          location.reload();
+        });
+      });
     },
   },
 };

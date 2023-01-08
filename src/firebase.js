@@ -2,9 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { 
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
-  onAuthStateChanged, signOut, deleteUser,sendPasswordResetEmail,updatePassword, sendEmailVerification} 
+  onAuthStateChanged, signOut, deleteUser,sendPasswordResetEmail,updatePassword, sendEmailVerification,
+  } 
 from "firebase/auth";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit  } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, doc, deleteDoc, onSnapshot   } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -41,6 +42,9 @@ export {
     getDocs,
     query,
     orderBy,
-    limit
+    limit,
+    doc, 
+    deleteDoc,
+    onSnapshot 
 
 }

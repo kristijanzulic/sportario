@@ -97,6 +97,7 @@ import {
   query,
   orderBy,
   limit,
+  onSnapshot,
 } from "@/firebase";
 
 export default {
@@ -130,6 +131,7 @@ export default {
     async dohvatiobjave() {
       const auth = getAuth();
       const user = auth.currentUser;
+
       const querySnapshot = query(
         collection(db, "Objave"),
         orderBy("objavljeno", "desc"),

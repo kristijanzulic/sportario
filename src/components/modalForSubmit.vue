@@ -53,7 +53,7 @@
 import opcine from "@/assets/popis.json";
 import sport from "@/assets/sportovi.json";
 import store from "@/store";
-import { collection, addDoc, db } from "@/firebase";
+import { getDocs, limit, orderBy, collection, addDoc, db } from "@/firebase";
 
 export default {
   data() {
@@ -63,6 +63,7 @@ export default {
       store: store,
     };
   },
+  mounted() {},
   methods: {
     async postNewImage() {
       // let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
@@ -82,6 +83,7 @@ export default {
         this.store.datum = "";
         this.store.igraci = "";
         this.store.message = "";
+        location.reload();
       } catch (e) {
         console.error("Error adding document: ", e);
       }

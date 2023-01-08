@@ -75,7 +75,11 @@ export default {
             lokacija: data.lokacija,
             time: data.objavljeno,
             poruka: data.poruka,
+            id: doc.id,
           });
+          console.log(data);
+
+          console.log(doc.id);
           console.log("kartice" + this.cards);
         });
 
