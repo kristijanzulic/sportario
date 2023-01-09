@@ -50,21 +50,10 @@
                           ></b-form-input>
                         </b-form-group>
                         <!-- phone -->
-                        <b-form-group
-                          label-cols-sm="4"
-                          label-cols-lg="3"
-                          content-cols-sm
-                          content-cols-lg="7"
-                          label="Broj mobitela: "
-                        >
-                          <b-form-input
-                            type="number"
-                            v-model="store.currentUser.phoneNumber"
-                          ></b-form-input>
-                        </b-form-group>
                       </b-col>
-                    </b-row> </b-container
-                ></b-card-text>
+                    </b-row>
+                  </b-container></b-card-text
+                >
                 <button type="button" @click="urediProfil()">
                   Spremi podatke
                 </button></b-tab
@@ -113,11 +102,9 @@ export default {
       const auth = getAuth();
       updateProfile(auth.currentUser, {
         displayName: this.store.currentUser.displayName,
-        phoneNumber: this.store.currentUser.phoneNumber,
       })
         .then(() => {
           console.log("Radim");
-          console.log("phone number: " + user.phoneNumber);
         })
         .catch((error) => {
           // An error occurred

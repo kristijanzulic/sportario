@@ -26,20 +26,13 @@
                   placeholder="Lozinka"
                 />
               </div>
-              <div class="form-group form-check">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label class="form-check-label bojabox" for="exampleCheck1"
-                  >Zapamti me</label
-                >
-              </div>
+
               <button type="button" @click="login()" class="tipka btn">
                 Prijava
               </button>
-              <p class="zab">Zaboravio si lozinku?</p>
+              <p class="zab">
+                <router-link to="/">Nemaš račun?</router-link>
+              </p>
             </form>
           </div>
         </div>
@@ -145,5 +138,10 @@ export default {
   color: #adadad;
   margin-left: 50%;
   margin-top: 50px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }
 </style>

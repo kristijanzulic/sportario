@@ -9,9 +9,7 @@
               <a href="">Nogomet</a> <br />
               <a href="">Košarka</a> <br />
               <a href="">Tenis</a> <br />
-              <a href="">Biciklizam</a><br />
-              <a href="">Rukomet</a><br />
-              <a href="">Golf</a><br />
+              <a href="">Ostalo</a><br />
             </b-card>
           </b-collapse>
         </div>
@@ -40,7 +38,15 @@ import modalForSubmitVue from "@/components/modalForSubmit.vue";
 import opcine from "@/assets/popis.json";
 import karticaVue from "@/components/kartica.vue";
 import store from "@/store";
-import { collection, db, getDocs, query, orderBy, limit } from "@/firebase";
+import {
+  getAuth,
+  collection,
+  db,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+} from "@/firebase";
 
 export default {
   name: "sport",
@@ -56,7 +62,11 @@ export default {
     modalForSubmitVue,
   },
   mounted() {
+    const auth = getAuth();
+    const user = auth.currentUser;
     this.dohvatiobjave();
+    console.log(user.email);
+    console.log(user.displayName);
   },
 
   methods: {

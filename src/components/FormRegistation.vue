@@ -1,6 +1,6 @@
 <template>
   <div class="forma">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="text-white">
+    <b-form @submit="onSubmit" v-if="show" class="text-white">
       <!-- email -->
       <b-form-group
         id="input-group-1"
@@ -16,7 +16,14 @@
         ></b-form-input>
       </b-form-group>
       <!-- ime -->
-
+      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.ime"
+          placeholder="Enter name"
+          required
+        ></b-form-input>
+      </b-form-group>
       <!-- password -->
 
       <b-form-group id="input-group-3" label-for="input-3">
@@ -56,9 +63,7 @@
         </b-form-valid-feedback>
       </b-form-group>
 
-      <b-button type="button" @click="prijava" variant="primary"
-        >Registracija</b-button
-      >
+      <b-button type="submit" variant="primary">Registracija</b-button>
     </b-form>
 
     <!-- <b-card class="mt-3" header="Form Data Result">
@@ -69,9 +74,11 @@
 
 <script>
 import {
+  getAuth,
   auth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "@/firebase";
 import store from "@/store";
 
@@ -80,8 +87,10 @@ export default {
     return {
       form: {
         email: "",
+        ime: "",
         password: "",
         rpassword: "",
+        ime: "",
       },
       store: store,
       show: true,
@@ -98,44 +107,21 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
-    },
-    prijava() {
-      // if (this.form.password !== this.form.rPassword) {
-      //   alert("lozinka nije ista");
-      // } else if (this.form.password.length < 6) {
-      //   alert(
-      //     "Lozinka treba sadržavati najmanje 6 znamenki. Vaša lozinka sadržava " +
-      //       this.form.password.length +
-      //       " znamenke"
-      //   );
-      // }
+      // alert(JSON.stringify(this.form));
+
       createUserWithEmailAndPassword(auth, this.form.email, this.form.password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // ...
           alert("Korisnik je registriran");
+          // ime
+          const auth = getAuth();
           updateProfile(auth.currentUser, {
-            displayName: this.store.currentUser.displayName,
+            displayName: this.form.ime,
           })
-            .then(() => {
-              console.log("Radim");
-            })
+            .then(() => {})
             .catch((error) => {
-              // An error occurred
-              // ...
+              alert(error);
             });
           // verifikacija
           sendEmailVerification(auth.currentUser).then(() => {

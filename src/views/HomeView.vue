@@ -23,7 +23,7 @@
         </b-col>
         <b-col> </b-col>
         <b-col class="coltri">
-          <FormRegistation />
+          <FormRegistation v-if="!store.currentUser" />
         </b-col>
       </b-row>
     </b-container>

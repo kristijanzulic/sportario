@@ -7,7 +7,7 @@
       alt="Card image cap"
     />
     <img
-      src="@/assets/baskteball.png"
+      src="@/assets/basketball.png"
       v-if="info.sport == 'Košarka'"
       class="card-img-top"
       alt="..."
@@ -18,21 +18,10 @@
       class="card-img-top"
       alt="..."
     />
+
     <img
-      src="@/assets/logo_pravi.png"
-      v-if="info.sport == 'Biciklizam'"
-      class="card-img-top"
-      alt="..."
-    />
-    <img
-      src="@/assets/tennis.jpg"
-      v-if="info.sport == 'Rukomet'"
-      class="card-img-top"
-      alt="..."
-    />
-    <img
-      src="@/assets/tennis.jpg"
-      v-if="info.sport == 'Golf'"
+      src="@/assets/backround.jpg"
+      v-if="info.sport == 'Ostalo'"
       class="card-img-top"
       alt="..."
     />

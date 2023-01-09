@@ -8,11 +8,13 @@
       ref="modal"
       title="Podnesi svoj zahtjev"
       hide-footer
+      
     >
-      <form>
+    
+      <form @submit.prevent="postNewImage()">
         <!-- sport -->
         <label>Odaberi sport:</label> <br />
-        <select v-model="store.sport">
+        <select v-model="store.sport" required>
           <option v-for="sport in sportovi" :key="sport.sport">
             {{ sport.sport }}
           </option>
@@ -21,7 +23,7 @@
         <br />
 
         <label>Odaberi lokaciju:</label> <br />
-        <select v-model="store.lokacija">
+        <select v-model="store.lokacija" required>
           <option v-for="opcina in sortMj" :key="opcina.id">
             {{ opcina.opcina }}
           </option>
@@ -30,21 +32,25 @@
         <br />
 
         <label>Odaberi datum:</label> <br />
-        <input v-model="store.datum" type="date" />
+        <input v-model="store.datum" type="date" required/>
 
         <br />
 
         <label>Odaberi broj igraća:</label> <br />
-        <input v-model="store.igraci" type="number" />
-
+        <input v-model="store.igraci" type="number" required />
+        <br />
         <span>Unesi dodatno:</span>
-        <p style="white-space: pre-line">{{ store.message }}</p>
+        <br />
+
         <textarea
           v-model="store.message"
           placeholder="add multiple lines"
+          required
         ></textarea>
+        <div>
+          <input type="submit" value="Podnesi" ></input >
+        </div>
       </form>
-      <button type="button" @click="postNewImage()">Podnesi</button>
     </b-modal>
   </div>
 </template>

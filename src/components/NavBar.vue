@@ -5,7 +5,7 @@
         <img src="@/assets/logo_pravi.png" width="50" height="50" alt="" />
       </a>
       <b-navbar-brand>
-        <router-link to="">Sportario</router-link></b-navbar-brand
+        <router-link to="/">Sportario</router-link></b-navbar-brand
       >
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -96,6 +96,7 @@ export default {
       signOut(auth)
         .then(() => {
           console.log("odjavio si se");
+          router.push({ name: "login" });
         })
         .catch((error) => {
           console.log(error);
