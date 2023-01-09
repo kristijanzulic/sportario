@@ -10,7 +10,7 @@ export default {
     prezime:"",
     email:"",
     broj:"",
-    lozinka:""
+    lozinka:"",
 }
 
 

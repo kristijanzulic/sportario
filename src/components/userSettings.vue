@@ -21,28 +21,19 @@
                   ><b-container class="bv-example-row">
                     <b-row>
                       <b-col>
-                        <!-- ime -->
+                        <!-- ime i prezime-->
                         <b-form-group
                           label-cols-sm="4"
                           label-cols-lg="3"
                           content-cols-sm
                           content-cols-lg="7"
-                          label="Ime"
+                          label="Ime i prezime: "
                         >
                           <b-form-input
                             v-model="store.currentUser.displayName"
                           ></b-form-input>
                         </b-form-group>
-                        <!-- prezime -->
-                        <b-form-group
-                          label-cols-sm="4"
-                          label-cols-lg="3"
-                          content-cols-sm
-                          content-cols-lg="7"
-                          label="Prezime"
-                        >
-                          <b-form-input v-model="store.prezime"></b-form-input>
-                        </b-form-group>
+
                         <!-- email -->
                         <b-form-group
                           disabled
@@ -50,7 +41,7 @@
                           label-cols-lg="3"
                           content-cols-sm
                           content-cols-lg="7"
-                          label="e-mail"
+                          label="e-mail: "
                         >
                           <b-form-input
                             id="input-horizontal"
@@ -64,11 +55,11 @@
                           label-cols-lg="3"
                           content-cols-sm
                           content-cols-lg="7"
-                          label="Broj mobitel"
+                          label="Broj mobitela: "
                         >
                           <b-form-input
                             type="number"
-                            v-model="store.broj"
+                            v-model="store.currentUser.phoneNumber"
                           ></b-form-input>
                         </b-form-group>
                       </b-col>
@@ -122,9 +113,11 @@ export default {
       const auth = getAuth();
       updateProfile(auth.currentUser, {
         displayName: this.store.currentUser.displayName,
+        phoneNumber: this.store.currentUser.phoneNumber,
       })
         .then(() => {
           console.log("Radim");
+          console.log("phone number: " + user.phoneNumber);
         })
         .catch((error) => {
           // An error occurred
@@ -170,9 +163,10 @@ export default {
             lokacija: data.lokacija,
             time: data.objavljeno,
             poruka: data.poruka,
+            email: data.email,
           });
         });
-        console.log(this.cards);
+        console.log(user.phoneNumber);
       });
     },
   },

@@ -24,10 +24,13 @@
     </b-row>
     <b-row>
       <b-col>
-        <karticaVue v-for="card in cards" :key="card.id" :info="card" />
+        <karticaVue
+          class="kartica"
+          v-for="card in cards"
+          :key="card.id"
+          :info="card"
+        />
       </b-col>
-      <b-col>2 of 3</b-col>
-      <b-col>3 of 3</b-col>
     </b-row>
   </b-container>
 </template>
@@ -55,6 +58,7 @@ export default {
   mounted() {
     this.dohvatiobjave();
   },
+
   methods: {
     async dohvatiobjave() {
       const querySnapshot = query(
@@ -77,13 +81,7 @@ export default {
             poruka: data.poruka,
             email: data.email,
           });
-          //console.log(data);
-
-          //console.log(doc.id);
-          //console.log("kartice" + this.cards);
         });
-
-        // console.log(`${doc.id} => ${doc.data()}`);
       });
     },
   },
@@ -109,5 +107,9 @@ a {
 }
 a:hover {
   color: black;
+}
+.kartica {
+  display: inline-block;
+  margin: 10px;
 }
 </style>

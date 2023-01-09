@@ -1,13 +1,13 @@
 <template>
   <div class="card" style="width: 18rem">
     <img
-      src="@/assets/backround.jpg"
+      src="@/assets/nogomet.png"
       v-if="info.sport == 'Nogomet'"
       class="card-img-top"
-      alt="..."
+      alt="Card image cap"
     />
     <img
-      src="@/assets/backround.jpg"
+      src="@/assets/baskteball.png"
       v-if="info.sport == 'Košarka'"
       class="card-img-top"
       alt="..."
@@ -42,7 +42,6 @@
       <h2>{{ info.lokacija }}</h2>
       <h2>{{ info.ime }}</h2>
       <p>{{ info.datum }}</p>
-      <p>id : {{ info.id }}</p>
       <button
         v-if="info.email == this.store.currentUser.email"
         @click="brisanjeobjave()"
@@ -77,7 +76,6 @@ export default {
   mounted() {
     const auth = getAuth();
     const user = auth.currentUser;
-    console.log("console log 1 " + this.info.id);
   },
   methods: {
     async postNewImage() {
@@ -113,5 +111,10 @@ export default {
 <style scoped>
 h5 {
   text-align: center;
+}
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
 }
 </style>
