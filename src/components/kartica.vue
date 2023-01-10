@@ -90,7 +90,6 @@ export default {
           email: this.store.currentUser,
           objavljeno: Date.now(),
         });
-        console.log("Document written with ID: ", docRef.id);
         this.store.sport = "";
         this.store.lokacija = "";
         this.store.datum = "";
@@ -102,7 +101,7 @@ export default {
     },
     async brisanjeobjave() {
       await deleteDoc(doc(db, "Objave", this.info.id));
-      console.log("brisem objavu");
+      this.$vToastify.success("Objava obrisana", "Uspješno");
     },
   },
 };

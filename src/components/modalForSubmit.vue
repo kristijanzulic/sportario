@@ -96,7 +96,7 @@ export default {
           email: this.store.currentUser.email,
           objavljeno: Date.now(),
         });
-        console.log("Document written with ID: ", docRef.id);
+        this.$vToastify.success("", "Uspješno");
         this.store.sport = "";
         this.store.lokacija = "";
         this.store.datum = "";

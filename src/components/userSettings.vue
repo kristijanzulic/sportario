@@ -137,6 +137,7 @@ export default {
       })
         .then(() => {
           console.log("Radim");
+          this.$vToastify.success("Postavke ažurirane", "Uspješno");
         })
         .catch((error) => {
           // An error occurred
@@ -178,19 +179,20 @@ export default {
       deleteUser(user)
         .then(() => {
           // User deleted.
-          console.log("korisnik je obrisan");
+          this.$vToastify.info("Račun deaktiviran", "Uspješno");
           router.push({ name: "home" });
         })
         .catch((error) => {
           // An error ocurred
           console.log("korisnik nije obrisan");
+          this.$vToastify.error("Potrebno je ponovno se prijaviti", "Greška");
           console.log(error);
-          alert("Prijavi se ponovo");
           const auth = getAuth();
           signOut(auth)
             .then(() => {
-              console.log("odjavio si se");
-              router.push({ name: "login" });
+              this.$vToastify.info("Račun je odjavljen");
+
+              router.push({ name: "home" });
             })
             .catch((error) => {
               console.log(error);
@@ -205,11 +207,13 @@ export default {
         .then(() => {
           // Password reset email sent!
           // ..
-          alert("Link za promjenu je poslan na email");
+          this.$vToastify.info("Poslano na email adresu : " + user.email);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          this.$vToastify.error(error.message, "Greška");
+
           console.log("error" + error.message);
 
           // ..

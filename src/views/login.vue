@@ -16,6 +16,9 @@
                   aria-describedby="emailHelp"
                   placeholder="Email"
                 />
+                <div v-if="errors && errors.email">
+                  {{ errors.email }}
+                </div>
               </div>
               <div class="form-group">
                 <input
@@ -46,6 +49,7 @@
 
 <script>
 import { getAuth, auth, signInWithEmailAndPassword } from "@/firebase";
+import store from "@/store";
 
 export default {
   name: "login",
@@ -53,15 +57,31 @@ export default {
     return {
       email: "",
       password: "",
+      errors: null,
+      store: store,
     };
   },
   methods: {
-    login() {
-      if (this.password.length < 6) {
-        alert(
+    async login() {
+      if (this.password.length < 6 && this.email == "") {
+        this.$vToastify.error(
           "Lozinka treba sadržavati najmanje 6 znamenki. Vaša lozinka sadržava " +
             this.password.length
         );
+      }
+
+      const errors = {};
+      if (!this.email) {
+        errors.email = "Email is required";
+      } else if (!/^[^@]+@\w+(\.\w+)+\w$/.test(this.email)) {
+        errors.email = "Invalid email";
+      }
+
+      if (Object.keys(errors).length > 0) {
+        this.errors = errors;
+        return;
+      } else {
+        this.errors = null;
       }
 
       const auth = getAuth();
@@ -69,6 +89,7 @@ export default {
         .then((userCredential) => {
           // Signed in
           console.log("Korisnik je prijavljen");
+          this.$vToastify.success("Korisnik je prijavljen", "Uspješno");
           const user = userCredential.user;
           console.log(user);
           // ...
@@ -76,7 +97,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert(error.code + " -> ");
+          this.$vToastify.error(error.code, "Greška");
         });
     },
   },

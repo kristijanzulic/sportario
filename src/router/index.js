@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from "@/store"
+import VueToastify from "vue-toastify";
 
+Vue.use(VueToastify,{
+  position:"bottom-right",
+  canTimeout:true,
+  errorDuration:8000,
+  successDuration:8000,
+  warningInfoDuration:8000,
+  canPause: true,
+});
 Vue.use(VueRouter)
 
 const routes = [

@@ -83,7 +83,6 @@ onAuthStateChanged(auth, (user) => {
     // User is signed out
     // ...
     store.currentUser = null;
-    console.log("odjavljen");
 
     // if (currentRoute.meta.needsUser) {
     //   router.push({ name: "login" });
@@ -103,7 +102,7 @@ export default {
       const auth = getAuth();
       signOut(auth)
         .then(() => {
-          console.log("odjavio si se");
+          this.$vToastify.info("Korisnik odjavljen");
           router.push({ name: "login" });
         })
         .catch((error) => {
