@@ -91,7 +91,7 @@ export default {
     },
     async brisanjeobjave() {
       await deleteDoc(doc(db, "Objave", this.info.id));
-      console.log("RADIM");
+      console.log("brisem objavu");
     },
   },
 };

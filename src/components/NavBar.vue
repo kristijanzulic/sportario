@@ -15,13 +15,18 @@
           <b-nav-item-dropdown left>
             <!-- Using 'button-content' slot -->
             <template #button-content> Sport </template>
-            <b-dropdown-item href="#">Nogomet</b-dropdown-item>
-            <b-dropdown-item href="#">Košarka</b-dropdown-item>
-            <b-dropdown-item href="#">Tennis</b-dropdown-item>
-            <b-dropdown-item href="#">Biciklizam</b-dropdown-item>
-            <b-dropdown-item href="#">Rukomet</b-dropdown-item>
-            <b-dropdown-item href="#">Golf</b-dropdown-item>
-            <b-dropdown-item href="/sport">Ostalo</b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/nogomet">Nogomet</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/kosarka">Košarka</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/tenis">Tenis</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link to="/ostalo">Ostalo</router-link>
+            </b-dropdown-item>
           </b-nav-item-dropdown>
           <b-nav-item>
             <router-link to="/vjezba">Događaji</router-link>
@@ -118,6 +123,7 @@ a {
   color: inherit;
 }
 a:hover {
-  color: rgba(255, 255, 255, 0.75);
+  /* color: rgba(255, 255, 255, 0.75); */
+  color: black;
 }
 </style>

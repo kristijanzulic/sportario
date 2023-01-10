@@ -8,13 +8,12 @@
               <b-tab title="Objave"
                 ><b-card-text>
                   <karticaVue
+                    class="kartica"
                     v-for="card in cards"
                     :key="card.id"
                     :info="card"
-                  />
-                  objave</b-card-text
-                ></b-tab
-              >
+                  /> </b-card-text
+              ></b-tab>
 
               <b-tab title="Postavke" active>
                 <b-card-text
@@ -130,11 +129,13 @@ export default {
     async dohvatiobjave() {
       const auth = getAuth();
       const user = auth.currentUser;
-      console.log(user);
+
       const querySnapshot = query(
         collection(db, "Objave"),
         orderBy("objavljeno", "desc"),
         where("email", "==", user.email),
+        where("sport", "==", "Nogomet"),
+
         limit(10)
       );
 
@@ -160,4 +161,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.kartica {
+  display: inline-block;
+  margin: 10px;
+}
+</style>

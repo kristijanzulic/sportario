@@ -6,10 +6,13 @@
           <b-button v-b-toggle.collapse-3 class="m-1">Kategorije</b-button>
           <b-collapse visible id="collapse-3">
             <b-card>
-              <a href="">Nogomet</a> <br />
-              <a href="">Košarka</a> <br />
-              <a href="">Tenis</a> <br />
-              <a href="">Ostalo</a><br />
+              <router-link to="/nogomet"> <a>Nogomet</a></router-link>
+              <br />
+              <router-link to="/kosarka"> <a>Košarka</a></router-link>
+              <br />
+              <router-link to="/tenis"> <a>Tenis</a></router-link>
+              <br />
+              <router-link to="/ostalo"> <a>Ostalo</a></router-link>
             </b-card>
           </b-collapse>
         </div>
