@@ -26,7 +26,7 @@
                           label-cols-lg="3"
                           content-cols-sm
                           content-cols-lg="7"
-                          label="Ime i prezime: "
+                          label="Korisničko ime: "
                         >
                           <b-form-input
                             v-model="store.currentUser.displayName"
@@ -53,10 +53,39 @@
                     </b-row>
                   </b-container></b-card-text
                 >
-                <button type="button" @click="urediProfil()">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  data-toggle="button"
+                  aria-pressed="false"
+                  autocomplete="off"
+                  @click="urediProfil()"
+                >
                   Spremi podatke
-                </button></b-tab
-              >
+                </button>
+                <br />
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  data-toggle="button"
+                  aria-pressed="false"
+                  autocomplete="off"
+                  @click="promijenilozinku()"
+                >
+                  Nova lozinka
+                </button>
+                <br />
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-toggle="button"
+                  aria-pressed="false"
+                  autocomplete="off"
+                  @click="brisanjeracuna()"
+                >
+                  Deaktiviraj račun
+                </button>
+              </b-tab>
             </b-tabs>
           </b-card></b-col
         >
@@ -69,6 +98,7 @@
 <script>
 import store from "@/store";
 import karticaVue from "@/components/kartica.vue";
+import router from "../router";
 import {
   getAuth,
   addDoc,
@@ -82,6 +112,9 @@ import {
   where,
   doc,
   updateProfile,
+  sendPasswordResetEmail,
+  deleteUser,
+  signOut,
 } from "@/firebase";
 
 export default {
@@ -111,21 +144,6 @@ export default {
         });
     },
 
-    async spremiOsobnePodatke() {
-      try {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        const docRef = await addDoc(collection(db, "Osobni podaci"), {
-          ime: this.store.prezime,
-          prezime: this.store.prezime,
-          email: user.email,
-          brojmobitela: this.store.broj,
-        });
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    },
     async dohvatiobjave() {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -133,13 +151,10 @@ export default {
       const querySnapshot = query(
         collection(db, "Objave"),
         orderBy("objavljeno", "desc"),
-        where("email", "==", user.email),
-        where("sport", "==", "Nogomet"),
-
-        limit(10)
+        where("email", "==", user.email)
       );
 
-      await getDocs(querySnapshot).then((querySnapshot) => {
+      onSnapshot(querySnapshot, (querySnapshot) => {
         this.cards = [];
         querySnapshot.forEach((doc) => {
           const data = doc.data();
@@ -154,8 +169,51 @@ export default {
             email: data.email,
           });
         });
-        console.log(user.phoneNumber);
       });
+    },
+    brisanjeracuna() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      deleteUser(user)
+        .then(() => {
+          // User deleted.
+          console.log("korisnik je obrisan");
+          router.push({ name: "home" });
+        })
+        .catch((error) => {
+          // An error ocurred
+          console.log("korisnik nije obrisan");
+          console.log(error);
+          alert("Prijavi se ponovo");
+          const auth = getAuth();
+          signOut(auth)
+            .then(() => {
+              console.log("odjavio si se");
+              router.push({ name: "login" });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          // ...
+        });
+    },
+    promijenilozinku() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      sendPasswordResetEmail(auth, user.email)
+        .then(() => {
+          // Password reset email sent!
+          // ..
+          alert("Link za promjenu je poslan na email");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("error" + error.message);
+
+          // ..
+        });
     },
   },
 };
@@ -165,5 +223,8 @@ export default {
 .kartica {
   display: inline-block;
   margin: 10px;
+}
+.btn {
+  margin-top: 5px;
 }
 </style>

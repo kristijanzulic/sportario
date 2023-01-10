@@ -49,6 +49,8 @@ import {
   query,
   orderBy,
   limit,
+  onSnapshot,
+  doc,
 } from "@/firebase";
 
 export default {
@@ -65,22 +67,18 @@ export default {
     modalForSubmitVue,
   },
   mounted() {
-    const auth = getAuth();
-    const user = auth.currentUser;
     this.dohvatiobjave();
-    console.log(user.email);
-    console.log(user.displayName);
   },
 
   methods: {
     async dohvatiobjave() {
       const querySnapshot = query(
         collection(db, "Objave"),
-        orderBy("objavljeno", "desc"),
+        orderBy("datum", "desc"),
         limit(10)
       );
 
-      await getDocs(querySnapshot).then((querySnapshot) => {
+      onSnapshot(querySnapshot, (querySnapshot) => {
         this.cards = [];
         querySnapshot.forEach((doc) => {
           const data = doc.data();

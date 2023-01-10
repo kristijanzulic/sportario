@@ -1,5 +1,6 @@
 <template>
   <div>
+    <modalForSubmitVue />
     <karticaVue
       class="kartica"
       v-for="card in cards"
@@ -12,6 +13,7 @@
 <script>
 import store from "@/store";
 import karticaVue from "@/components/kartica.vue";
+import modalForSubmitVue from "@/components/modalForSubmit.vue";
 import {
   getAuth,
   collection,
@@ -31,7 +33,7 @@ export default {
       cards: [],
     };
   },
-  components: { karticaVue },
+  components: { karticaVue, modalForSubmitVue },
   mounted() {
     this.dohvatiobjave();
   },

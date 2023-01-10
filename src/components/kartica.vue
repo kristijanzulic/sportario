@@ -26,16 +26,23 @@
       alt="..."
     />
     <div class="card-body">
-      <h5 class="">{{ info.sport }}</h5>
-      <p class="card-text">{{ info.poruka }}</p>
-      <h2>{{ info.lokacija }}</h2>
-      <h2>{{ info.ime }}</h2>
-      <p>{{ info.datum }}</p>
+      <h2 class="">{{ info.sport }}</h2>
+      <h5>{{ info.lokacija }}</h5>
+      <p class="card-text info">{{ info.poruka }}</p>
+      <p>Potreban broj ljudi: {{ info.igraci }}</p>
+      <p>{{ store.currentUser.displayName }}</p>
+      <p>{{ datum }}</p>
+
       <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="button"
+        aria-pressed="false"
+        autocomplete="off"
         v-if="info.email == this.store.currentUser.email"
         @click="brisanjeobjave()"
       >
-        Obrisi
+        Obriši
       </button>
       <div class="card-footer text-muted">{{ postedFromNow }}</div>
     </div>
@@ -60,6 +67,10 @@ export default {
   computed: {
     postedFromNow() {
       return moment(this.info.time).fromNow();
+    },
+    datum() {
+      moment.locale("hr");
+      return moment(this.info.datum).format("MMM Do YY");
     },
   },
   mounted() {
@@ -99,6 +110,12 @@ export default {
 
 <style scoped>
 h5 {
+  text-align: center;
+}
+h2 {
+  text-align: center;
+}
+p.info {
   text-align: center;
 }
 .card-img-top {

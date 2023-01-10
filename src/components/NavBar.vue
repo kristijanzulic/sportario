@@ -16,6 +16,9 @@
             <!-- Using 'button-content' slot -->
             <template #button-content> Sport </template>
             <b-dropdown-item>
+              <router-link to="/sport">Sve</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
               <router-link to="/nogomet">Nogomet</router-link>
             </b-dropdown-item>
             <b-dropdown-item>

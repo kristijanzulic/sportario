@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button v-b-modal.modal-prevent-closing>Podnesi zahtjev</b-button>
+    <b-button v-b-modal.modal-prevent-closing  class="boja">Podnesi zahtjev</b-button>
 
     <b-modal
       id="modal-prevent-closing"
@@ -8,13 +8,13 @@
       ref="modal"
       title="Podnesi svoj zahtjev"
       hide-footer
-      
+      header-bg-variant="light"
     >
     
       <form @submit.prevent="postNewImage()">
         <!-- sport -->
         <label>Odaberi sport:</label> <br />
-        <select v-model="store.sport" required>
+        <select v-model="store.sport" class="input" required>
           <option v-for="sport in sportovi" :key="sport.sport">
             {{ sport.sport }}
           </option>
@@ -23,7 +23,7 @@
         <br />
 
         <label>Odaberi lokaciju:</label> <br />
-        <select v-model="store.lokacija" required>
+        <select v-model="store.lokacija" class="input" required>
           <option v-for="opcina in sortMj" :key="opcina.id">
             {{ opcina.opcina }}
           </option>
@@ -32,23 +32,28 @@
         <br />
 
         <label>Odaberi datum:</label> <br />
-        <input v-model="store.datum" type="date" required/>
+        <input v-model="store.datum"  type="date" max="2023-12-31" class="input" required/>
 
         <br />
 
         <label>Odaberi broj igraća:</label> <br />
-        <input v-model="store.igraci" type="number" required />
+        <input v-model="store.igraci" type="number" class="input" required />
         <br />
         <span>Unesi dodatno:</span>
         <br />
 
         <textarea
           v-model="store.message"
-          placeholder="add multiple lines"
+          v-on:keyup="countdown"
+          placeholder="Max 140 znakova"
+          rows="4" cols="25" maxlength="140"
+          class="input"
           required
         ></textarea>
+        <p class='brojac'>{{remainingCount}}/140</p>
         <div>
-          <input type="submit" value="Podnesi" ></input >
+          <input type="submit" value="Podnesi"></input >
+          
         </div>
       </form>
     </b-modal>
@@ -56,10 +61,11 @@
 </template>
 
 <script>
+
 import opcine from "@/assets/popis.json";
 import sport from "@/assets/sportovi.json";
 import store from "@/store";
-import { getDocs, limit, orderBy, collection, addDoc, db } from "@/firebase";
+import { collection, addDoc, db } from "@/firebase";
 
 export default {
   data() {
@@ -67,10 +73,17 @@ export default {
       popis: opcine,
       sportovi: sport,
       store: store,
+      maxCount: 140,
+      remainingCount: 140,
+      hasError: false,
     };
   },
   mounted() {},
   methods: {
+    countdown: function() {
+      this.remainingCount = this.maxCount - this.store.message.length;
+      this.hasError = this.remainingCount < 0;
+    },  
     async postNewImage() {
       // let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
       try {
@@ -89,7 +102,6 @@ export default {
         this.store.datum = "";
         this.store.igraci = "";
         this.store.message = "";
-        location.reload();
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -121,3 +133,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.boja{
+  color:white;
+  background-color: #093657;
+  margin-top: 4px ;
+  border-color: #093657;
+}
+
+</style>
