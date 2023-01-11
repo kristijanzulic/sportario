@@ -11,7 +11,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav left>
-        <b-navbar-nav>
+        <b-navbar-nav v-if="store.currentUser">
           <b-nav-item-dropdown left>
             <!-- Using 'button-content' slot -->
             <template #button-content> Sport </template>
@@ -31,9 +31,9 @@
               <router-link to="/ostalo">Ostalo</router-link>
             </b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item>
+          <!-- <b-nav-item>
             <router-link to="/vjezba">Događaji</router-link>
-          </b-nav-item>
+          </b-nav-item> -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -125,7 +125,6 @@ a {
   color: inherit;
 }
 a:hover {
-  /* color: rgba(255, 255, 255, 0.75); */
-  color: black;
+  color: rgba(255, 255, 255, 0.75);
 }
 </style>

@@ -2,8 +2,7 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-4 sve">
           <div class="forma">
             <form>
               <img class="pic" src="@/assets/logo_pravi.png" alt="" />
@@ -33,13 +32,12 @@
               <button type="button" @click="login()" class="tipka btn">
                 Prijava
               </button>
-              <p class="zab">
-                <router-link to="/">Nemaš račun?</router-link>
+              <p class="zab2">
+                <router-link class="zab" to="/">Nemaš račun?</router-link>
               </p>
             </form>
           </div>
         </div>
-        <div class="col-4"></div>
       </div>
     </div>
 
@@ -104,7 +102,7 @@ export default {
 };
 </script>
 
-<style scooped>
+<style scoped>
 .bg-img {
   top: 0;
   left: 0;
@@ -113,18 +111,24 @@ export default {
   z-index: -1;
   filter: brightness(70%);
 }
+.sve {
+  width: 50%;
+  border: 3px;
+  padding: 10px;
+  margin-left: 35%;
+  margin-top: 15%;
+}
 .forma {
   border-style: solid;
   border-color: #adadad;
-  width: 350px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50%;
   border-radius: 20px;
   background-color: #000000;
   padding: 20px;
+  width: 50%;
+  height: auto;
 }
+
 .bojabox {
   color: #adadad;
 }
@@ -141,8 +145,9 @@ export default {
   font-size: 18px;
   background-color: #adadad;
 }
-:hover {
-  color: white;
+.tipka:hover {
+  color: black;
+  background-color: white;
 }
 .space {
   margin-top: 20%;
@@ -156,13 +161,40 @@ export default {
   margin-bottom: 20px;
 }
 .zab {
-  color: #adadad;
+  color: gray;
   margin-left: 50%;
-  margin-top: 50px;
+
+  border: 1px;
+  border-color: yellow;
+}
+.zab2 {
+  margin-top: 10%;
+}
+.zab:hover {
+  background-color: #000000;
+  color: white;
 }
 
 a {
   text-decoration: none;
   color: white;
+}
+@media only screen and (max-width: 600px) {
+  .forma {
+    border-style: solid;
+    border-color: #adadad;
+    display: block;
+    width: 20em;
+    margin-right: 10em;
+    border-radius: 20px;
+    background-color: #000000;
+    padding: 20px;
+  }
+  .sve {
+    margin-left: 3.5em;
+    width: 50%;
+    border: 3px;
+    padding: 10px;
+  }
 }
 </style>

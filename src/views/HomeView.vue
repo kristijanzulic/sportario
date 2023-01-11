@@ -17,7 +17,12 @@
             </h1>
             <h2>Play Anywhere Anytime</h2>
 
-            <b-button class="tipka" pill variant="primary">
+            <b-button
+              v-if="store.currentUser"
+              class="tipka"
+              pill
+              variant="primary"
+            >
               <router-link to="/sport">Pretraži</router-link>
             </b-button>
           </div>

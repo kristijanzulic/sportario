@@ -28,9 +28,8 @@
     <div class="card-body">
       <h2 class="">{{ info.sport }}</h2>
       <h5>{{ info.lokacija }}</h5>
-      <p class="card-text info">{{ info.poruka }}</p>
+      <p class="card-text info">Poruka: {{ info.poruka }}</p>
       <p>Potreban broj ljudi: {{ info.igraci }}</p>
-      <p>{{ info.ime }}</p>
       <p>{{ datum }}</p>
 
       <button
@@ -44,7 +43,10 @@
       >
         Obriši
       </button>
-      <div class="card-footer text-muted">{{ postedFromNow }}</div>
+      <div class="card-footer text-muted">
+        {{ postedFromNow }} <br />
+        Korisnik: {{ info.ime }}
+      </div>
     </div>
   </div>
 </template>
