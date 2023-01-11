@@ -21,7 +21,6 @@
             </b-button>
           </div>
         </b-col>
-        <b-col> </b-col>
         <b-col class="coltri">
           <FormRegistation v-if="!store.currentUser" />
         </b-col>

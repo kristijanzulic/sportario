@@ -66,7 +66,7 @@
         </b-form-valid-feedback>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Registracija</b-button>
+      <b-button type="submit" variant="primary">Registriraj se</b-button>
     </b-form>
     <!-- forma2 -->
 
@@ -171,9 +171,10 @@ export default {
 <style scoped>
 .forma {
   border: 1px solid #bcbcbc;
+  border-color: gray;
   background: rgba(0, 0, 0, 0.7);
   opacity: 1;
-  border-radius: 5%;
+  border-radius: 20px;
   font-family: "Montserrat" sans-serif;
   padding: 5%;
 }
