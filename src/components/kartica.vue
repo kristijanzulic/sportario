@@ -30,7 +30,7 @@
       <h5>{{ info.lokacija }}</h5>
       <p class="card-text info">{{ info.poruka }}</p>
       <p>Potreban broj ljudi: {{ info.igraci }}</p>
-      <p>{{ store.currentUser.displayName }}</p>
+      <p>{{ info.ime }}</p>
       <p>{{ datum }}</p>
 
       <button
@@ -78,27 +78,6 @@ export default {
     const user = auth.currentUser;
   },
   methods: {
-    async postNewImage() {
-      // let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
-      try {
-        const docRef = await addDoc(collection(db, "Objave"), {
-          sport: this.store.sport,
-          lokacija: this.store.lokacija,
-          datum: this.store.datum,
-          igraci: this.store.igraci,
-          poruka: this.store.message,
-          email: this.store.currentUser,
-          objavljeno: Date.now(),
-        });
-        this.store.sport = "";
-        this.store.lokacija = "";
-        this.store.datum = "";
-        this.store.igraci = "";
-        this.store.message = "";
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    },
     async brisanjeobjave() {
       await deleteDoc(doc(db, "Objave", this.info.id));
       this.$vToastify.success("Objava obrisana", "Uspješno");

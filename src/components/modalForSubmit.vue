@@ -94,6 +94,7 @@ export default {
           igraci: this.store.igraci,
           poruka: this.store.message,
           email: this.store.currentUser.email,
+          ime: this.store.currentUser.displayName,
           objavljeno: Date.now(),
         });
         this.$vToastify.success("", "Uspješno");

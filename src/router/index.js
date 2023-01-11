@@ -6,9 +6,9 @@ import VueToastify from "vue-toastify";
 Vue.use(VueToastify,{
   position:"bottom-right",
   canTimeout:true,
-  errorDuration:8000,
-  successDuration:8000,
-  warningInfoDuration:8000,
+  errorDuration:10000,
+  successDuration:10000,
+  warningInfoDuration:10000,
   canPause: true,
 });
 Vue.use(VueRouter)

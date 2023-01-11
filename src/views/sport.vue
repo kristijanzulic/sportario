@@ -91,6 +91,7 @@ export default {
             time: data.objavljeno,
             poruka: data.poruka,
             email: data.email,
+            ime: data.ime,
           });
         });
       });
