@@ -32,7 +32,6 @@
             <router-link to="/login" v-if="!store.currentUser"
               >Prijava</router-link
             >
-            <router-link to="/signup">email</router-link>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

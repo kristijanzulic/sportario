@@ -2,8 +2,8 @@
   <div>
     <a v-b-modal.modal-1>Obrati nam se</a>
 
-    <b-modal id="modal-1" title="BootstrapVue" hide-footer>
-      <p class="my-4">Hello from modal!</p>
+    <b-modal id="modal-1" title="Obrazac" hide-footer>
+      <p class="my-4">Imaš pritužbu ili ideju? Slobodno nam se obrati.</p>
 
       <form ref="form" @submit.prevent="sendEmail()">
         <!-- ime -->
