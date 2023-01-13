@@ -13,8 +13,10 @@
           
         >
           <b-form-input
+            type="text" 
+            v-model="name" 
+            name="user_name"
             id="name-input"
-            v-model="name"
             required
           ></b-form-input>
         </b-form-group>
@@ -28,6 +30,7 @@
             type="email"
             id="name-input"
             v-model="email"
+            name="user_email"
             required
           ></b-form-input>
         </b-form-group>
@@ -42,6 +45,7 @@
             placeholder=""
             rows="3"
             max-rows="6"
+            name="message"
             required
           ></b-form-textarea>
         </b-form-group>
@@ -49,22 +53,7 @@
       </form>
     </b-modal>
   </div>
-  <!-- <form ref="form" @submit.prevent="sendEmail">
-    <label>Name</label>
-    <input type="text" v-model="name" name="name" placeholder="Your Name" />
-    <label>Email</label>
-    <input type="email" v-model="email" name="email" placeholder="Your Email" />
-    <label>Message</label>
-    <textarea
-      name="message"
-      v-model="message"
-      cols="30"
-      rows="5"
-      placeholder="Message"
-    >
-    </textarea>
-    <input type="submit" value="Send" />
-  </form> -->
+  
 </template>
 
 <script>
@@ -75,32 +64,29 @@ export default {
   data() {
     return {
       store: store,
-      name: "",
-      email: "",
+      name: store.currentUser.displayName,
+      email: store.currentUser.email,
+      message: "",
       message: "",
     };
   },
   methods: {
-    sendEmail(e) {
-      try {
-        emailjs.sendForm(
-          "service_0irjkff",
+    sendEmail() {
+      emailjs
+        .sendForm(
+          "service_td3oaad",
           "template_lb2gx7w",
-          e.target,
-          "AFqC38RaUdVo7OwKq",
-          {
-            name: this.name,
-            email: this.email,
-            message: this.message,
+          this.$refs.form,
+          "AFqC38RaUdVo7OwKq"
+        )
+        .then(
+          (result) => {
+            console.log("SUCCESS!", result.text);
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
           }
         );
-      } catch (error) {
-        console.log({ error });
-      }
-      // Reset form field
-      this.name = "";
-      this.email = "";
-      this.message = "";
     },
   },
 };

@@ -32,27 +32,31 @@
       <p>Potreban broj ljudi: {{ info.igraci }}</p>
       <p>{{ datum }}</p>
 
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="button"
-        aria-pressed="false"
-        autocomplete="off"
-        v-if="info.email == this.store.currentUser.email"
-        @click="brisanjeobjave()"
-      >
-        Obriši
-      </button>
+      <b-row>
+        <b-col class="text-left"
+          ><b-button variant="primary">
+            <a class="mailtoui" v-bind:href="'mailto:' + info.email"
+              >Javi mi se</a
+            >
+          </b-button></b-col
+        >
+        <b-col class="text-right">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-toggle="button"
+            aria-pressed="false"
+            autocomplete="off"
+            v-if="info.email == this.store.currentUser.email"
+            @click="brisanjeobjave()"
+          >
+            Obriši
+          </button></b-col
+        >
+      </b-row>
+
       <!-- mail -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="button"
-        aria-pressed="false"
-        autocomplete="off"
-      >
-        <a v-bind:href="'mailto:' + info.email">Javi mi se</a>
-      </button>
+
       <!--  -->
       <div class="card-footer text-muted">
         {{ postedFromNow }} <br />
@@ -66,6 +70,7 @@
 import store from "@/store";
 import { getAuth, collection, addDoc, db, deleteDoc, doc } from "@/firebase";
 import moment from "moment";
+const MailtoUI = require("../../node_modules/mailtoui/dist/mailtoui-min");
 
 export default {
   props: {
@@ -89,6 +94,11 @@ export default {
   mounted() {
     const auth = getAuth();
     const user = auth.currentUser;
+    MailtoUI.run({
+      title: "Odaberi kako želiš poslati email",
+      buttonIcon1:
+        "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg",
+    }); // <--- Run MailtoUI manually
   },
   methods: {
     async brisanjeobjave() {
@@ -113,5 +123,9 @@ p.info {
   width: 100%;
   height: 15vw;
   object-fit: cover;
+}
+a {
+  text-decoration: none;
+  color: white;
 }
 </style>

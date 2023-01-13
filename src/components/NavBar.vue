@@ -7,7 +7,7 @@
       <b-navbar-brand>
         <router-link to="/">Sportario</router-link></b-navbar-brand
       >
-
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav left>
         <b-navbar-nav v-if="store.currentUser">
           <b-nav-item>
