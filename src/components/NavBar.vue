@@ -8,32 +8,11 @@
         <router-link to="/">Sportario</router-link></b-navbar-brand
       >
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
       <b-collapse id="nav-collapse" is-nav left>
         <b-navbar-nav v-if="store.currentUser">
-          <b-nav-item-dropdown left>
-            <!-- Using 'button-content' slot -->
-            <template #button-content> Sport </template>
-            <b-dropdown-item>
-              <router-link to="/sport">Sve</router-link>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <router-link to="/nogomet">Nogomet</router-link>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <router-link to="/kosarka">Košarka</router-link>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <router-link to="/tenis">Tenis</router-link>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <router-link to="/ostalo">Ostalo</router-link>
-            </b-dropdown-item>
-          </b-nav-item-dropdown>
-          <!-- <b-nav-item>
-            <router-link to="/vjezba">Događaji</router-link>
-          </b-nav-item> -->
+          <b-nav-item>
+            <router-link to="/sport">Sport</router-link>
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -44,17 +23,17 @@
               <em>{{ store.currentUser.displayName }}</em>
             </template>
             <b-dropdown-item>
-              <router-link to="/profile">Profile</router-link></b-dropdown-item
+              <router-link to="/profile">Profil</router-link></b-dropdown-item
             >
-            <b-dropdown-item href="#" @click.prevent="logout"
-              >Sign Out</b-dropdown-item
-            >
+            <b-dropdown-item><primjedba /></b-dropdown-item>
+            <b-dropdown-item @click.prevent="logout">Odjavi se</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-nav-item>
             <router-link to="/login" v-if="!store.currentUser"
               >Prijava</router-link
-            ></b-nav-item
-          >
+            >
+            <router-link to="/signup">email</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -65,6 +44,7 @@
 import { getAuth, onAuthStateChanged, signOut } from "@/firebase";
 import router from "../router";
 import store from "@/store";
+import primjedba from "./primjedba.vue";
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
@@ -97,6 +77,7 @@ export default {
       store: store,
     };
   },
+  components: { primjedba },
   methods: {
     logout() {
       const auth = getAuth();

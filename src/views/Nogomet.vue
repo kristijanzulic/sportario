@@ -1,19 +1,33 @@
 <template>
-  <div>
-    <modalForSubmitVue />
-    <karticaVue
-      class="kartica"
-      v-for="card in cards"
-      :key="card.id"
-      :info="card"
-    />
-  </div>
+  <b-container class="bv-example-row">
+    <b-row>
+      <b-col>
+        <kategorije />
+      </b-col>
+      <b-col cols="10">
+        <div class="okvir">
+          <modalForSubmit v-if="store.currentUser" />
+        </div>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <karticaVue
+          class="kartica"
+          v-for="card in cards"
+          :key="card.id"
+          :info="card"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 import store from "@/store";
 import karticaVue from "@/components/kartica.vue";
-import modalForSubmitVue from "@/components/modalForSubmit.vue";
+import kategorije from "@/components/kategorije.vue";
+import modalForSubmit from "@/components/modalForSubmit.vue";
 import {
   getAuth,
   collection,
@@ -26,14 +40,14 @@ import {
 } from "@/firebase";
 
 export default {
-  name: "nogomet",
+  name: "kosarka",
   data() {
     return {
       store: store,
       cards: [],
     };
   },
-  components: { karticaVue, modalForSubmitVue },
+  components: { karticaVue, kategorije, modalForSubmit },
   mounted() {
     this.dohvatiobjave();
   },
@@ -46,7 +60,6 @@ export default {
         collection(db, "Objave"),
         orderBy("objavljeno", "desc"),
         where("sport", "==", "Nogomet"),
-
         limit(10)
       );
 
@@ -63,6 +76,7 @@ export default {
             time: data.objavljeno,
             poruka: data.poruka,
             email: data.email,
+            ime: data.ime,
           });
         });
       });

@@ -43,6 +43,17 @@
       >
         Obriši
       </button>
+      <!-- mail -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="button"
+        aria-pressed="false"
+        autocomplete="off"
+      >
+        <a v-bind:href="'mailto:' + info.email">Javi mi se</a>
+      </button>
+      <!--  -->
       <div class="card-footer text-muted">
         {{ postedFromNow }} <br />
         Korisnik: {{ info.ime }}
