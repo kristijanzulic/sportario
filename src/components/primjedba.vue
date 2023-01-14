@@ -1,31 +1,28 @@
 <template>
   <div>
-    <a v-b-modal.modal-1>Obrati nam se</a>
+    <a v-b-modal.modal-1 @click="showModal">Obrati nam se</a>
 
-    <b-modal id="modal-1" title="Obrazac" hide-footer>
+    <b-modal
+      header-bg-variant="light"
+      title="Podnesi svoj zahtjev"
+      ref="my-modal"
+      hide-footer
+    >
       <p class="my-4">Imaš pritužbu ili ideju? Slobodno nam se obrati.</p>
 
       <form ref="form" @submit.prevent="sendEmail()">
         <!-- ime -->
-        <b-form-group
-          label="Ime"
-          label-for="name-input"
-          
-        >
+        <b-form-group label="Ime" label-for="name-input">
           <b-form-input
-            type="text" 
-            v-model="name" 
+            type="text"
+            v-model="name"
             name="user_name"
             id="name-input"
             required
           ></b-form-input>
         </b-form-group>
         <!-- email -->
-        <b-form-group
-          label="Email"
-          label-for="name-input"
-          
-        >
+        <b-form-group label="Email" label-for="name-input">
           <b-form-input
             type="email"
             id="name-input"
@@ -35,10 +32,7 @@
           ></b-form-input>
         </b-form-group>
         <!-- textarea -->
-        <b-form-group
-          label="Unesi poruku"
-          
-        >
+        <b-form-group label="Unesi poruku">
           <b-form-textarea
             id="textarea"
             v-model="message"
@@ -49,11 +43,21 @@
             required
           ></b-form-textarea>
         </b-form-group>
-        <input type="submit" value="Pošalji"></input >
+        <b-button
+          type="input"
+          class="mt-3"
+          variant="primary"
+          block
+          @submit.prevent="postNewImage()"
+          >Podnesi</b-button
+        >
       </form>
     </b-modal>
+
+    <!-- <b-modal id="modal-1" title="Obrazac" hide-footer>
+      
+    </b-modal> -->
   </div>
-  
 </template>
 
 <script>
@@ -67,10 +71,15 @@ export default {
       name: store.currentUser.displayName,
       email: store.currentUser.email,
       message: "",
-      message: "",
     };
   },
   methods: {
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
     sendEmail() {
       emailjs
         .sendForm(
@@ -82,6 +91,13 @@ export default {
         .then(
           (result) => {
             console.log("SUCCESS!", result.text);
+            this.$vToastify.info(
+              "U najbržem roku ćemo ti odgovoriti",
+              "Hvala ti"
+            );
+            this.message = "";
+            this.hideModal();
+            return this.hideModal();
           },
           (error) => {
             console.log("FAILED...", error.text);

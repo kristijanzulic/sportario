@@ -1,16 +1,16 @@
 <template>
   <div>
-    <b-button v-b-modal.modal-prevent-closing  class="boja">Podnesi zahtjev</b-button>
+    <!-- novi -->
+    <b-button id="show-btn" class="boja" @click="showModal"
+      >Podnesi zahtjev</b-button
+    >
 
     <b-modal
-      id="modal-prevent-closing"
-      ok-only
-      ref="modal"
-      title="Podnesi svoj zahtjev"
-      hide-footer
       header-bg-variant="light"
+      title="Podnesi svoj zahtjev"
+      ref="my-modal"
+      hide-footer
     >
-    
       <form @submit.prevent="postNewImage()">
         <!-- sport -->
         <label>Odaberi sport:</label> <br />
@@ -32,7 +32,13 @@
         <br />
 
         <label>Odaberi datum:</label> <br />
-        <input v-model="store.datum"  type="date" max="2023-12-31" class="input" required/>
+        <input
+          v-model="store.datum"
+          type="date"
+          max="2023-12-31"
+          class="input"
+          required
+        />
 
         <br />
 
@@ -46,22 +52,28 @@
           v-model="store.message"
           v-on:keyup="countdown"
           placeholder="Max 140 znakova"
-          rows="4" cols="25" maxlength="140"
+          rows="4"
+          cols="25"
+          maxlength="140"
           class="input"
           required
         ></textarea>
-        <p class='brojac'>{{remainingCount}}/140</p>
-        <div>
-          <input type="submit" value="Podnesi"></input >
-          
-        </div>
+        <p class="brojac">{{ remainingCount }}/140</p>
+
+        <b-button
+          type="input"
+          class="mt-3"
+          variant="primary"
+          block
+          @submit.prevent="postNewImage()"
+          >Podnesi</b-button
+        >
       </form>
     </b-modal>
   </div>
 </template>
 
 <script>
-
 import opcine from "@/assets/popis.json";
 import sport from "@/assets/sportovi.json";
 import store from "@/store";
@@ -80,10 +92,16 @@ export default {
   },
   mounted() {},
   methods: {
-    countdown: function() {
+    countdown: function () {
       this.remainingCount = this.maxCount - this.store.message.length;
       this.hasError = this.remainingCount < 0;
-    },  
+    },
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
     async postNewImage() {
       // let name = "posts/" + store.currentUser + "/" + Date.now() + ".txt";
       try {
@@ -103,6 +121,8 @@ export default {
         this.store.datum = "";
         this.store.igraci = "";
         this.store.message = "";
+        this.hideModal();
+        return this.hideModal();
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -136,11 +156,10 @@ export default {
 </script>
 
 <style scoped>
-.boja{
-  color:white;
+.boja {
+  color: white;
   background-color: #093657;
-  margin-top: 4px ;
+  margin-top: 4px;
   border-color: #093657;
 }
-
 </style>

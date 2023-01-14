@@ -10,12 +10,12 @@
       <b-row>
         <b-col>
           <div class="coldva">
-            <h4>A LIFETIME EXPERIENCE</h4>
+            <h4>Voliš sport?</h4>
             <h1>
-              SPORT EVENTS <br />
-              to remember
+              Teško ti je pronaći <br />
+              nekoga za igranje?
             </h1>
-            <h2>Play Anywhere Anytime</h2>
+            <h2>Registriraj se i tome je kraj</h2>
 
             <b-button
               v-if="store.currentUser"
