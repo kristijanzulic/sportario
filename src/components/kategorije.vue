@@ -6,6 +6,8 @@
       >
       <b-collapse visible id="collapse-3">
         <b-card class="kategorije">
+          <router-link to="/Sport"> <a>Sve</a></router-link>
+          <br />
           <router-link to="/nogomet"> <a>Nogomet</a></router-link>
           <br />
           <router-link to="/kosarka"> <a>Košarka</a></router-link>

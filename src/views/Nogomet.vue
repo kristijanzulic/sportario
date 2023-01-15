@@ -85,4 +85,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.kartica {
+  display: inline-block;
+  margin: 10px;
+}
+</style>

@@ -85,6 +85,7 @@ import {
   updateProfile,
 } from "@/firebase";
 import store from "@/store";
+import router from "@/router";
 
 export default {
   data() {
@@ -139,7 +140,8 @@ export default {
             .then(() => {
               this.$vToastify.success(
                 "Dobrodošao: " + this.ime,
-                "Korisnik je registriran"
+                "Korisnik je registriran",
+                router.push({ name: "sport" })
               );
             })
             .catch((error) => {

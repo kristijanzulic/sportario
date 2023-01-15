@@ -34,7 +34,10 @@
 
       <b-row>
         <b-col class="text-left"
-          ><b-button variant="primary">
+          ><b-button
+            variant="primary"
+            v-if="info.email != this.store.currentUser.email"
+          >
             <a class="mailtoui" v-bind:href="'mailto:' + info.email"
               >Javi mi se</a
             >

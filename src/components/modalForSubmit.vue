@@ -118,7 +118,6 @@ export default {
         this.$vToastify.success("", "Uspješno");
         this.store.sport = "";
         this.store.lokacija = "";
-        this.store.datum = "";
         this.store.igraci = "";
         this.store.message = "";
         this.hideModal();

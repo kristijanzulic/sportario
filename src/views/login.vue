@@ -25,11 +25,17 @@
                   v-model="password"
                   class="form-control bojainput"
                   id="password"
+                  required
                   placeholder="Lozinka"
                 />
               </div>
 
-              <button type="button" @click="login()" class="tipka btn">
+              <button
+                type="input"
+                v-on:keyup="onEnter()"
+                @click.prevent="login()"
+                class="tipka btn"
+              >
                 Prijava
               </button>
               <p class="zab2">
@@ -60,12 +66,18 @@ export default {
     };
   },
   methods: {
+    onEnter: function () {
+      this.msg = "on enter event";
+    },
     async login() {
       if (this.password.length < 6 && this.email == "") {
         this.$vToastify.error(
           "Lozinka treba sadržavati najmanje 6 znamenki. Vaša lozinka sadržava " +
             this.password.length
         );
+      }
+      if (this.password == "") {
+        this.$vToastify.error("Upiši lozinku");
       }
 
       const errors = {};

@@ -89,7 +89,7 @@
             </b-tabs>
           </b-card></b-col
         >
-        <b-col sm="2">3 of 3</b-col>
+        <b-col sm="2"></b-col>
       </b-row>
     </b-container>
   </div>
@@ -101,16 +101,12 @@ import karticaVue from "@/components/kartica.vue";
 import router from "../router";
 import {
   getAuth,
-  addDoc,
   collection,
   db,
-  getDocs,
   query,
   orderBy,
-  limit,
   onSnapshot,
   where,
-  doc,
   updateProfile,
   sendPasswordResetEmail,
   deleteUser,

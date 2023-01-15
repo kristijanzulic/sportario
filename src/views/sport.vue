@@ -30,17 +30,7 @@ import karticaVue from "@/components/kartica.vue";
 import kategorije from "@/components/kategorije.vue";
 
 import store from "@/store";
-import {
-  getAuth,
-  collection,
-  db,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  doc,
-} from "@/firebase";
+import { collection, db, query, orderBy, limit, onSnapshot } from "@/firebase";
 
 export default {
   name: "sport",
